@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  client:
+    build: .
+    ports:
+      - 3000:3000
+      - 9001:9001
+    volumes:
+      - ./:/home/node/app
+    command: /bin/sh -c 'npm install && npm start'
+
+  
