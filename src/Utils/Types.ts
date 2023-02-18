@@ -18,10 +18,18 @@ export type Room = {
   bookingDurationStep: number
 }
 
-export type Booking = {
+export type BookingResponseData = {
   id: string
   start: string
   end: string
+  name: string
+  userId: UserId
+}
+
+export type Booking = {
+  id: string
+  start: Date
+  end: Date
   name: string
   userId: UserId
 }

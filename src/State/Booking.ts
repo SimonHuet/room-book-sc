@@ -1,7 +1,7 @@
 import { createEntityAdapter, createSlice, EntityState } from '@reduxjs/toolkit'
 
 import { RootState } from 'State'
-import { Booking } from 'Utils/Types'
+import { Booking, BookingResponseData } from 'Utils/Types'
 
 export type BookingState = EntityState<Booking> & {
   isLoading: boolean
@@ -27,10 +27,18 @@ const slice = createSlice({
         payload: { bookings },
       }: {
         payload: {
-          bookings: Booking[]
+          bookings: BookingResponseData[]
         }
       }
-    ) => bookingAdapter.setMany({ ...state, isLoading: false }, bookings),
+    ) =>
+      bookingAdapter.setMany(
+        { ...state, isLoading: false },
+        bookings.map(booking => ({
+          ...booking,
+          start: new Date(booking.start),
+          end: new Date(booking.end),
+        }))
+      ),
   },
 })
 

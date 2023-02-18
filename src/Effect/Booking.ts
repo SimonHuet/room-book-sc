@@ -3,11 +3,11 @@ import { fetchApi } from 'Utils/Effect'
 
 import * as Api from './Api'
 import * as BookingState from 'State/Booking'
-import { Booking } from 'Utils/Types'
+import { BookingResponseData } from 'Utils/Types'
 
 function* fetchBookings() {
   try {
-    const { data: bookings }: { data: Booking[] } = yield fetchApi(
+    const { data: bookings }: { data: BookingResponseData[] } = yield fetchApi(
       Api.getBookings()
     )
 

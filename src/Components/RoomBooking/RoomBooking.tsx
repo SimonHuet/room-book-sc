@@ -24,7 +24,8 @@ export const RoomBooking: React.FC = () => {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>
-        Booking of the room: <span className={styles.name}>{room?.name}</span>
+        Incoming bookings of the room:
+        <span className={styles.name}>{room?.name}</span>
       </h2>
 
       <BookingTimeline />

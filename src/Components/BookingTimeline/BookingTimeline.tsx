@@ -1,15 +1,20 @@
 import { ReactNode, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import differenceInMinutes from 'date-fns/differenceInMinutes'
 
+import { Booking } from 'Components/UI/Booking'
+import { Timeline } from 'Components/UI/Timeline'
+import { TimelineItem } from 'Components/UI/Timeline'
+import { User } from 'Components/User'
 import * as BookingState from 'State/Booking'
-import { Booking } from 'Utils/Types'
+import { Booking as BookingType } from 'Utils/Types'
 
 import styles from './BookingTimeline.module.scss'
 
 export const BookingTimeline: React.FC = () => {
   const dispatch = useDispatch()
 
-  const bookings: Booking[] = useSelector(
+  const bookings: BookingType[] = useSelector(
     BookingState.select.bookings.selectAll
   )
   const isLoadingBooking: boolean = useSelector(BookingState.select.isLoading)
@@ -22,14 +27,23 @@ export const BookingTimeline: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      {bookings.map(
-        (booking: Booking): ReactNode => (
-          <div key={booking.id}>
-            {JSON.stringify(booking)}
-            <br />
-          </div>
-        )
-      )}
+      <Timeline>
+        {bookings.map(
+          (booking: BookingType): ReactNode => (
+            <TimelineItem
+              key={booking.id}
+              style={{
+                height: `calc(${
+                  80 + differenceInMinutes(booking.end, booking.start) / 5
+                }px * 50%)`,
+              }}
+            >
+              <Booking booking={booking} />
+              <User userId={booking.userId} />
+            </TimelineItem>
+          )
+        )}
+      </Timeline>
     </div>
   )
 }
