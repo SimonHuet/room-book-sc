@@ -27,3 +27,10 @@ export const userMe = (): FetchParams => ({
     method: 'GET',
   },
 })
+
+export const getRoom = (): FetchParams => ({
+  path: '/resource',
+  options: {
+    method: 'GET',
+  },
+})

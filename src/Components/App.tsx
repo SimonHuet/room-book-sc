@@ -1,9 +1,10 @@
 import { AuthLayout } from './AuthLayout'
+import { RoomBooking } from './RoomBooking'
 
 const App = () => {
   return (
     <AuthLayout>
-      <div> Here is the Room booking</div>
+      <RoomBooking />
     </AuthLayout>
   )
 }
