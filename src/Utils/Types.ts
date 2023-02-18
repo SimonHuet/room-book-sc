@@ -17,3 +17,11 @@ export type Room = {
   maximumBookingDuration: number
   bookingDurationStep: number
 }
+
+export type Booking = {
+  id: string
+  start: string
+  end: string
+  name: string
+  userId: UserId
+}

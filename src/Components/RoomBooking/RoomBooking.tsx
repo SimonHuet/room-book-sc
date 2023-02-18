@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { BookingTimeline } from 'Components/BookingTimeline'
 import * as RoomState from 'State/Room'
 import { Room } from 'Utils/Types'
 
@@ -25,6 +26,8 @@ export const RoomBooking: React.FC = () => {
       <h2 className={styles.title}>
         Booking of the room: <span className={styles.name}>{room?.name}</span>
       </h2>
+
+      <BookingTimeline />
     </div>
   )
 }

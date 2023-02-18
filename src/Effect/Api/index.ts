@@ -34,3 +34,10 @@ export const getRoom = (): FetchParams => ({
     method: 'GET',
   },
 })
+
+export const getBookings = (): FetchParams => ({
+  path: '/bookings',
+  options: {
+    method: 'GET',
+  },
+})
