@@ -1,0 +1,43 @@
+@import 'Styles/colors.scss';
+
+.button {
+  border-radius: 4px;
+  color: $white;
+
+  display: inline-block;
+  position: relative;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  border: solid 1px $primary;
+  border-radius: 6px;
+  background-color: $primary;
+
+  padding: 0 10px;
+
+  min-width: 60px;
+  min-height: 32px;
+  vertical-align: middle;
+  text-align: center;
+  text-decoration: none;
+  line-height: 14px;
+  font-size: 14px;
+  font-weight: 500;
+  user-select: none;
+
+  &.secondary {
+    color: $primary;
+    border: solid 1px $secondary;
+    border-radius: 6px;
+    background-color: $secondary;
+  }
+
+  .hide {
+    visibility: hidden;
+  }
+
+  .spinner {
+    position: absolute;
+    left: calc(50% - 10px);
+  }
+}
