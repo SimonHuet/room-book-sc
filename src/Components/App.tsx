@@ -3,7 +3,7 @@ import { AuthLayout } from './AuthLayout'
 const App = () => {
   return (
     <AuthLayout>
-      <div>Ouii</div>
+      <div> Here is the Room booking</div>
     </AuthLayout>
   )
 }
