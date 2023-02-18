@@ -1,10 +1,12 @@
-type Method = 'GET' | 'POST' | 'DELETE'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export type Success = {
+  data: object
+  success: boolean
+}
 
-interface FetchParams {
-  path: string
-  options: {
-    method: Method
-  }
+export type Failure = {
+  message: string
+  success: boolean
 }
 
 export const fetchBackend = (
@@ -13,10 +15,10 @@ export const fetchBackend = (
     options = {
       method: 'GET',
     },
-  }: FetchParams,
-  token: string
-) =>
-  fetch(`${process.env.REACT_APP_BACKEND_URL}${path}`, {
+  }: any,
+  token: any
+): Promise<Success | Failure> => {
+  return fetch(`${process.env.REACT_APP_BACKEND_URL}${path}`, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
@@ -31,3 +33,4 @@ export const fetchBackend = (
 
       return body
     })
+}

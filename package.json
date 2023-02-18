@@ -15,6 +15,7 @@
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-scripts": "5.0.1",
+    "redux-logger": "^3.0.6",
     "redux-saga": "^1.2.2",
     "web-vitals": "^2.1.4"
   },
@@ -45,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "@types/redux-logger": "^3.0.9",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
     "eslint": "^8.34.0",
