@@ -1,22 +1,21 @@
 @import 'Styles/colors.scss';
 
-// .booking {
-//   min-height: 30px;
-//   border: 1px solid $grey;
-//   border-radius: 10px;
+.event-name {
+  color: $primary;
+  width: 100%;
+  text-align: left;
+  font-weight: 500;
+}
 
-//   padding: 10px;
-//   margin: 2px;
+.hours {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
 
-//   @media (min-width: 320px) {
-//     width: 250px;
-//   }
+  column-gap: 5px;
+  text-align: left;
 
-//   @media (min-width: 768px) {
-//     width: 300px;
-//   }
-
-//   @media (min-width: 1200px) {
-//     width: 400px;
-//   }
-// }
+  & > time {
+    font-weight: 500;
+  }
+}

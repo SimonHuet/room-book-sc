@@ -1,4 +1,5 @@
-import classNames from 'classnames'
+import differenceInMinutes from 'date-fns/differenceInMinutes'
+
 import formatDate from 'date-fns/format'
 
 import { Booking as BookingType } from 'Utils/Types'
@@ -9,17 +10,16 @@ type Props = {
   booking: BookingType
 }
 
-export const Booking: React.FC<Props> = ({
-  booking: { name, start, end, userId },
-}) => (
+export const Booking: React.FC<Props> = ({ booking: { name, start, end } }) => (
   <>
-    <time>
-      <>Start: {formatDate(start, 'dd/MM/yyyy at hh:mm')}</>
-    </time>
-    <div>{name}</div>
+    <div className={styles['event-name']}>{name}</div>
 
-    <time>
-      <>End: {formatDate(end, 'dd/MM/yyyy at hh:mm')}</>
-    </time>
+    <div className={styles.hours}>
+      From{' '}
+      <time dateTime={start.toISOString()}>{formatDate(start, 'HH:mm')}</time>{' '}
+      to
+      <time dateTime={end.toISOString()}> {formatDate(end, 'HH:mm')} </time>(
+      {differenceInMinutes(end, start)} Minutes)
+    </div>
   </>
 )
