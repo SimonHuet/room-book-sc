@@ -1,7 +1,7 @@
 import { createEntityAdapter, createSlice, EntityState } from '@reduxjs/toolkit'
 
 import { RootState } from 'State'
-import { User } from 'Utils/Types'
+import { User, UserId } from 'Utils/Types'
 
 export type UserState = EntityState<User> & {
   isLoading: boolean
@@ -21,23 +21,25 @@ const slice = createSlice({
       ...state,
       isLoading: true,
     }),
-    receivedConnectedUser: (
-      state,
-      {
-        payload: { connectedUser },
-      }: {
-        payload: {
-          connectedUser: User
-        }
-      }
-    ) => userAdapter.addOne(state, connectedUser),
+    fetchUser: (state, { payload: { id } }: { payload: { id: UserId } }) => ({
+      ...state,
+      isLoading: true,
+    }),
+    receivedUser: (state, { payload: { user } }: { payload: { user: User } }) =>
+      userAdapter.addOne({ ...state, isLoading: false }, user),
   },
 })
 
 export const { reducer } = slice
 
-export const { fetchConnectedUser, receivedConnectedUser } = slice.actions
+export const {
+  fetchConnectedUser,
+  fetchUser,
+
+  receivedUser,
+} = slice.actions
 
 export const select = {
   users: userAdapter.getSelectors((state: RootState) => state.user),
+  isLoading: (state: RootState) => state.user.isLoading,
 }

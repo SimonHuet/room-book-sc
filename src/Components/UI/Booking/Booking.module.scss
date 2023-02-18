@@ -1,0 +1,21 @@
+@import 'Styles/colors.scss';
+
+.event-name {
+  color: $primary;
+  width: 100%;
+  text-align: left;
+  font-weight: 500;
+}
+
+.hours {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+
+  column-gap: 5px;
+  text-align: left;
+
+  & > time {
+    font-weight: 500;
+  }
+}
