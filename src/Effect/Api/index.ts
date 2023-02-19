@@ -66,3 +66,10 @@ export const addBooking = ({
     }),
   },
 })
+
+export const removeBooking = ({ id }: { id: string }): FetchParams => ({
+  path: `/bookings/${id}`,
+  options: {
+    method: 'DELETE',
+  },
+})

@@ -1,10 +1,20 @@
 @import 'Styles/colors.scss';
 
-.event-name {
-  color: $primary;
+.event-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  row-gap: 5px;
+
   width: 100%;
-  text-align: left;
-  font-weight: 500;
+
+  & .event-name {
+    color: $primary;
+    text-align: left;
+    font-weight: 500;
+  }
 }
 
 .hours {

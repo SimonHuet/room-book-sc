@@ -9,9 +9,13 @@ import { Timeline } from 'Components/UI/Timeline'
 import { TimelineItem } from 'Components/UI/Timeline'
 import { User } from 'Components/User'
 
+import * as AuthState from 'State/Auth'
+import * as BookingState from 'State/Booking'
+
 import { Booking as BookingType } from 'Utils/Types'
 
 import styles from './BookingTimeline.module.scss'
+import { useDispatch, useSelector } from 'react-redux'
 
 type Props = {
   bookings: BookingType[]
@@ -55,16 +59,24 @@ export const BookingTimeline: React.FC<Props> = ({
   bookings,
   currentBooking,
 }) => {
+  const dispatch = useDispatch()
+
+  const connectedUserId = useSelector(AuthState.select.connectedUserId)
+  const onDelete = (id: string) => dispatch(BookingState.removeBooking({ id }))
+
   return (
     <div className={styles.container}>
       <Timeline>
-        {bookings.map((booking: BookingType): ReactNode => {
-          return (
+        {bookings.map(
+          (booking: BookingType): ReactNode => (
             <TimelineItem
               key={booking.id}
               isCurrent={booking.id === currentBooking?.id}
             >
-              <Booking booking={booking} />
+              <Booking
+                booking={booking}
+                {...(connectedUserId === booking.userId && { onDelete })}
+              />
               <div className={styles['user-row']}>
                 {getTimeMessage(booking.start, booking.end)}
 
@@ -72,7 +84,7 @@ export const BookingTimeline: React.FC<Props> = ({
               </div>
             </TimelineItem>
           )
-        })}
+        )}
       </Timeline>
     </div>
   )
