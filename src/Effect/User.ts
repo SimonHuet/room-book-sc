@@ -13,6 +13,8 @@ function* fetchConnectedUser() {
 
     yield put(UserState.receivedUser({ user }))
 
+    yield localStorage.setItem('connectedUser', JSON.stringify(user))
+
     yield put(AuthState.receivedConnectedUserId({ id: user.id }))
   } catch (error) {
     console.error(error)

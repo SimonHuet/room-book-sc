@@ -1,8 +1,4 @@
-import { select } from 'redux-saga/effects'
-
 import { fetchBackend } from './fetcher'
-
-import * as AuthState from '../State/Auth'
 
 export function* fetchApi({
   withCredentials = true,
@@ -25,7 +21,7 @@ export function* fetchApi({
   }
   */
 
-  const token = yield select(AuthState.select.token)
+  const token = localStorage.getItem('token')
 
   return yield fetchBackend(fetchParams, token)
 }

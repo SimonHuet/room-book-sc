@@ -10,6 +10,8 @@ function* login() {
   try {
     const { data: auth }: { data: Auth } = yield fetchApi(Api.login())
 
+    yield localStorage.setItem('token', auth.token)
+
     yield put(AuthState.success({ auth }))
 
     yield toast.success('Welcome Back')
@@ -24,6 +26,9 @@ function* logout() {
     yield fetchApi(Api.logout())
 
     yield put(AuthState.logoutSuccess())
+
+    yield localStorage.removeItem('token')
+    yield localStorage.removeItem('connectedUser')
   } catch (error) {
     console.error(error)
     yield toast.error('Login failed ')
