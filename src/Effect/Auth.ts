@@ -13,7 +13,8 @@ function* login() {
     yield put(AuthState.success({ auth }))
 
     yield toast.success('Welcome Back')
-  } catch (_) {
+  } catch (error) {
+    console.error(error)
     yield toast.error('Login failed ')
   }
 }
@@ -24,6 +25,7 @@ function* logout() {
 
     yield put(AuthState.logoutSuccess())
   } catch (error) {
+    console.error(error)
     yield toast.error('Login failed ')
   }
 }

@@ -11,7 +11,8 @@ function* fetchRoom() {
     const { data: room }: { data: Room } = yield fetchApi(Api.getRoom())
 
     yield put(RoomState.receivedRoom({ room }))
-  } catch (_) {
+  } catch (error) {
+    console.error(error)
     yield toast.error("The room couldn't be received")
   }
 }

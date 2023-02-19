@@ -15,6 +15,7 @@ function* fetchConnectedUser() {
 
     yield put(AuthState.receivedConnectedUserId({ id: user.id }))
   } catch (error) {
+    console.error(error)
     yield toast.error("Couldn't get the connected user")
   }
 }
@@ -25,6 +26,7 @@ function* fetchUser({ payload: { id } }: { payload: { id: UserId } }) {
 
     yield put(UserState.receivedUser({ user }))
   } catch (error) {
+    console.error(error)
     yield toast.error("Couldn't get the user")
   }
 }

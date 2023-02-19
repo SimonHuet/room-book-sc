@@ -13,7 +13,8 @@ function* fetchBookings() {
     )
 
     yield put(BookingState.receivedBookings({ bookings }))
-  } catch (_) {
+  } catch (error) {
+    console.error(error)
     yield toast.error("Bookings couldn't be received ")
   }
 }
@@ -34,6 +35,7 @@ function* addBooking({
     yield onSuccess()
     yield toast.success('Booking successfully created')
   } catch (error) {
+    console.error(error)
     yield toast.error("Booking couldn't be saved ")
   }
 }
@@ -50,6 +52,7 @@ function* removeBooking({
 
     yield put(BookingState.bookingRemoved({ id }))
   } catch (error) {
+    console.error(error)
     yield toast.error("Booking couldn't be cancelled ")
   }
 }
