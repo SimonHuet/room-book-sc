@@ -1,5 +1,3 @@
-import classNames from 'classnames'
-
 import styles from './Avatar.module.scss'
 
 type Props = {

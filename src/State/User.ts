@@ -21,6 +21,7 @@ const slice = createSlice({
       ...state,
       isLoading: true,
     }),
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     fetchUser: (state, { payload: { id } }: { payload: { id: UserId } }) => ({
       ...state,
       isLoading: true,

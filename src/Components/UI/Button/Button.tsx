@@ -23,9 +23,12 @@ export const Button = ({
       [styles.secondary]: secondary,
     })}
     onClick={onClick}
+    aria-labelledby="button-label"
   >
     {isLoading && <Spinner className={styles.spinner} />}
 
-    <span className={isLoading ? styles.hide : ''}>{children}</span>
+    <span id="button-label" className={isLoading ? styles.hide : ''}>
+      {children}
+    </span>
   </button>
 )
