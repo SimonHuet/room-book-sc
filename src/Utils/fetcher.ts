@@ -27,7 +27,7 @@ export const fetchBackend = (
   })
     .then(response => Promise.all([response, response.json()]))
     .then(([{ status }, body]) => {
-      if (400 <= status && body !== null) {
+      if ((400 <= status || status === 500) && body !== null) {
         return Promise.reject({ ...body, httpErrCode: status })
       }
 
