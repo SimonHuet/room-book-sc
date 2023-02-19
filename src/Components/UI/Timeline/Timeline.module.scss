@@ -74,6 +74,16 @@
       }
     }
 
+    &.current {
+      & .timeline-item-content {
+        background-color: $error-lighter;
+
+        &::after {
+          background-color: $error-lighter;
+        }
+      }
+    }
+
     & .timeline-item-content {
       position: relative;
 

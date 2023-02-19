@@ -1,9 +1,15 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import isWithinInterval from 'date-fns/isWithinInterval'
 
 import { BookingTimeline } from 'Components/BookingTimeline'
+import { RoomStatus } from 'Components/UI/RoomStatus'
+import { Spinner } from 'Components/UI/Spinner'
+
 import * as RoomState from 'State/Room'
-import { Room } from 'Utils/Types'
+import * as BookingState from 'State/Booking'
+
+import { Room, Booking as BookingType } from 'Utils/Types'
 
 import styles from './RoomBooking.module.scss'
 
@@ -21,14 +27,45 @@ export const RoomBooking: React.FC = () => {
     [dispatch]
   )
 
+  const bookings: BookingType[] = useSelector(
+    BookingState.select.bookings.selectAll
+  )
+  const isLoadingBooking: boolean = useSelector(BookingState.select.isLoading)
+
+  useEffect(() => {
+    if (!isLoadingBooking && !bookings.length)
+      dispatch(BookingState.fetchBookings())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch])
+
+  const currentBooking: BookingType | undefined = useMemo(
+    () =>
+      !isLoadingBooking && bookings.length > 0
+        ? bookings.find(({ start, end }) =>
+            isWithinInterval(new Date(), { start, end })
+          )
+        : undefined,
+    [bookings, isLoadingBooking]
+  )
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>
-        Incoming bookings of the room:
-        <span className={styles.name}>{room?.name}</span>
+        {!isLoadingRoom && room && !isLoadingBooking && bookings?.length > 0 ? (
+          <>
+            Bookings of the room:
+            <RoomStatus room={room} currentBooking={currentBooking} />
+          </>
+        ) : (
+          <Spinner className={styles.spinner} />
+        )}
       </h2>
 
-      <BookingTimeline />
+      {!isLoadingBooking && bookings?.length > 0 ? (
+        <BookingTimeline bookings={bookings} currentBooking={currentBooking} />
+      ) : (
+        <Spinner className={styles.spinner} />
+      )}
     </div>
   )
 }
