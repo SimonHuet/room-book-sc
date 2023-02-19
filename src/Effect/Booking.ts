@@ -3,7 +3,7 @@ import { fetchApi } from 'Utils/Effect'
 
 import * as Api from './Api'
 import * as BookingState from 'State/Booking'
-import { BookingResponseData } from 'Utils/Types'
+import { BookingBody, BookingResponseData } from 'Utils/Types'
 
 function* fetchBookings() {
   try {
@@ -17,6 +17,29 @@ function* fetchBookings() {
   }
 }
 
+function* addBooking({
+  payload: { booking, onSuccess },
+}: {
+  payload: {
+    booking: BookingBody
+    onSuccess: () => void
+  }
+}) {
+  try {
+    yield fetchApi(Api.addBooking({ booking }))
+
+    yield put(BookingState.receivedBooking())
+
+    yield onSuccess()
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export default function* rootSaga() {
-  yield takeEvery(BookingState.fetchBookings, fetchBookings)
+  yield takeEvery(
+    [BookingState.fetchBookings, BookingState.receivedBooking],
+    fetchBookings
+  )
+  yield takeEvery(BookingState.addBooking, addBooking)
 }

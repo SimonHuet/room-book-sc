@@ -37,6 +37,7 @@ export const AuthLayout: React.FC<Props> = ({ children }) => {
         <h1 className={styles['app-name']}>Room book SC</h1>
 
         <Button
+          id={isAuthenticated ? 'Logout' : 'Login'}
           onClick={isAuthenticated ? handleLogout : handleLogin}
           isLoading={isLoading}
           secondary

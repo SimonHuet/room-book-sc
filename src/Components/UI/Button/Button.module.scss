@@ -25,6 +25,14 @@
   font-weight: 500;
   user-select: none;
 
+  cursor: pointer;
+
+  &.round {
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+  }
+
   &.secondary {
     color: $primary;
     border: solid 1px $secondary;
@@ -39,5 +47,12 @@
   .spinner {
     position: absolute;
     left: calc(50% - 10px);
+  }
+
+  &:disabled {
+    background-color: $disabled;
+    cursor: not-allowed;
+    color: $grey;
+    border-color: $grey;
   }
 }
