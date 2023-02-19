@@ -1,13 +1,16 @@
 import { createEntityAdapter, createSlice, EntityState } from '@reduxjs/toolkit'
 
 import { RootState } from 'State'
+import { dateSorter } from 'Utils/State'
 import { Booking, BookingBody, BookingResponseData } from 'Utils/Types'
 
 export type BookingState = EntityState<Booking> & {
   isLoading: boolean
 }
 
-const bookingAdapter = createEntityAdapter<Booking>()
+const bookingAdapter = createEntityAdapter<Booking>({
+  sortComparer: dateSorter('start'),
+})
 
 const INITIAL_STATE: BookingState = bookingAdapter.getInitialState({
   isLoading: false,

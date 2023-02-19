@@ -71,13 +71,14 @@ export const RoomBookingForm: React.FC<Props> = ({ onSuccess }) => {
     const lowestDiffInMinutes = bookings
       .filter(booking => isFuture(booking.start))
       .map(({ start }) => differenceInMinutes(start, now))
-      .reduce((lowestMinutes: number | undefined, currDiff) => {
+      .reduce((lowestMinutes: number, currDiff) => {
         return lowestMinutes && lowestMinutes < currDiff
           ? lowestMinutes
           : currDiff
-      })
+      }, room.maximumBookingDuration)
 
     return lowestDiffInMinutes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookings])
 
   const maxMinutes: number = useMemo(
@@ -92,7 +93,7 @@ export const RoomBookingForm: React.FC<Props> = ({ onSuccess }) => {
     !currentBooking &&
     room.minimumBookingDuration < minutesBeforeNextBooking &&
     formData.name !== '' &&
-    formData.duration < minutesBeforeNextBooking
+    formData.duration <= minutesBeforeNextBooking
 
   useEffect(() => () => changeFormData(INITIAL_STATE), [INITIAL_STATE])
 

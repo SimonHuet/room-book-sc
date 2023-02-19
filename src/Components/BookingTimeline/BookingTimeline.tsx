@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 
 import differenceInMinutes from 'date-fns/differenceInMinutes'
 import differenceInHours from 'date-fns/differenceInHours'
+import isWithinInterval from 'date-fns/isWithinInterval'
 
 import { Booking } from 'Components/UI/Booking'
 import { Timeline } from 'Components/UI/Timeline'
@@ -17,6 +18,39 @@ type Props = {
   currentBooking?: BookingType
 }
 
+const getTimeMessage: (start: Date, end: Date) => JSX.Element = (
+  start,
+  end
+) => {
+  const isInProgress = isWithinInterval(new Date(), { start, end })
+
+  if (isInProgress) {
+    return <p>In progress</p>
+  }
+
+  const hoursBeforeEvent = differenceInHours(start, new Date())
+  const minutesBeforeEvent = differenceInMinutes(start, new Date())
+
+  if (hoursBeforeEvent > 0) {
+    return <time>In {hoursBeforeEvent} h</time>
+  }
+
+  if (hoursBeforeEvent === 0 && minutesBeforeEvent > 0) {
+    return <time>In {minutesBeforeEvent} min</time>
+  }
+
+  if (hoursBeforeEvent < 0) {
+    return <time className={styles.passed}> {hoursBeforeEvent * -1} h ago</time>
+  }
+  if (hoursBeforeEvent === 0 && minutesBeforeEvent < 0) {
+    return (
+      <time className={styles.passed}>{minutesBeforeEvent * -1} min ago</time>
+    )
+  }
+
+  return <p></p>
+}
+
 export const BookingTimeline: React.FC<Props> = ({
   bookings,
   currentBooking,
@@ -25,12 +59,6 @@ export const BookingTimeline: React.FC<Props> = ({
     <div className={styles.container}>
       <Timeline>
         {bookings.map((booking: BookingType): ReactNode => {
-          const hoursBeforeEvent = differenceInHours(booking.start, new Date())
-          const minutesBeforeEvent = differenceInMinutes(
-            booking.start,
-            new Date()
-          )
-
           return (
             <TimelineItem
               key={booking.id}
@@ -38,22 +66,8 @@ export const BookingTimeline: React.FC<Props> = ({
             >
               <Booking booking={booking} />
               <div className={styles['user-row']}>
-                {hoursBeforeEvent > 0 && <time>In {hoursBeforeEvent} h</time>}
-                {hoursBeforeEvent === 0 && minutesBeforeEvent > 0 && (
-                  <time>In {minutesBeforeEvent} min</time>
-                )}
-                {hoursBeforeEvent < 0 ? (
-                  <time className={styles.passed}>
-                    {hoursBeforeEvent * -1} h ago
-                  </time>
-                ) : (
-                  hoursBeforeEvent === 0 &&
-                  minutesBeforeEvent < 0 && (
-                    <time className={styles.passed}>
-                      {minutesBeforeEvent * -1} min ago
-                    </time>
-                  )
-                )}
+                {getTimeMessage(booking.start, booking.end)}
+
                 <User userId={booking.userId} />
               </div>
             </TimelineItem>
