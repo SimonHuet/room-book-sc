@@ -36,10 +36,27 @@ function* addBooking({
   }
 }
 
+function* removeBooking({
+  payload: { id },
+}: {
+  payload: {
+    id: string
+  }
+}) {
+  try {
+    yield fetchApi(Api.removeBooking({ id }))
+
+    yield put(BookingState.bookingRemoved({ id }))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export default function* rootSaga() {
   yield takeEvery(
     [BookingState.fetchBookings, BookingState.receivedBooking],
     fetchBookings
   )
   yield takeEvery(BookingState.addBooking, addBooking)
+  yield takeEvery(BookingState.removeBooking, removeBooking)
 }

@@ -58,13 +58,30 @@ const slice = createSlice({
     receivedBooking: state => ({ ...state, isLoading: false }),
     // As the api only return the booking id, the action trigger a new fetch of every booking
     // if Api returns full booking object  bookingAdapter.addOne({ ...state, isLoading: false }, booking),
+    removeBooking: (
+      state,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      _: {
+        payload: {
+          id: string
+        }
+      }
+    ) => state,
+    bookingRemoved: (state, { payload: { id } }: { payload: { id: string } }) =>
+      bookingAdapter.removeOne(state, id),
   },
 })
 
 export const { reducer } = slice
 
-export const { fetchBookings, receivedBookings, addBooking, receivedBooking } =
-  slice.actions
+export const {
+  fetchBookings,
+  receivedBookings,
+  addBooking,
+  receivedBooking,
+  removeBooking,
+  bookingRemoved,
+} = slice.actions
 
 export const select = {
   bookings: bookingAdapter.getSelectors((state: RootState) => state.booking),

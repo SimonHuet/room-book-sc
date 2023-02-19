@@ -1,4 +1,4 @@
-import { Booking, BookingBody, UserId } from 'Utils/Types'
+import { BookingBody, UserId } from 'Utils/Types'
 
 type Method = 'GET' | 'POST' | 'DELETE'
 
@@ -64,5 +64,12 @@ export const addBooking = ({
       name: booking.name,
       duration: booking.duration,
     }),
+  },
+})
+
+export const removeBooking = ({ id }: { id: string }): FetchParams => ({
+  path: `/bookings/${id}`,
+  options: {
+    method: 'DELETE',
   },
 })
