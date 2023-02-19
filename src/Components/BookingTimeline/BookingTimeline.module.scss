@@ -21,5 +21,10 @@
         color: $grey;
       }
     }
+
+    & > p {
+      color: $error-darker;
+      font-size: 14px;
+    }
   }
 }
