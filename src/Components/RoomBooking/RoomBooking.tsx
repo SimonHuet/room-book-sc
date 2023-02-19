@@ -1,8 +1,10 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import isWithinInterval from 'date-fns/isWithinInterval'
 
 import { BookingTimeline } from 'Components/BookingTimeline'
+import { Button } from 'Components/UI/Button'
+import { Modal } from 'Components/UI/Modal'
 import { RoomStatus } from 'Components/UI/RoomStatus'
 import { Spinner } from 'Components/UI/Spinner'
 
@@ -14,6 +16,8 @@ import { Room, Booking as BookingType } from 'Utils/Types'
 import styles from './RoomBooking.module.scss'
 
 export const RoomBooking: React.FC = () => {
+  const [showModal, setShowModal] = useState(false)
+
   const dispatch = useDispatch()
 
   const room: Room | null = useSelector(RoomState.select.room)
@@ -62,7 +66,39 @@ export const RoomBooking: React.FC = () => {
       </h2>
 
       {!isLoadingBooking && bookings?.length > 0 ? (
-        <BookingTimeline bookings={bookings} currentBooking={currentBooking} />
+        <>
+          <BookingTimeline
+            bookings={bookings}
+            currentBooking={currentBooking}
+          />
+
+          {!isLoadingRoom && room && (
+            <>
+              <Button
+                id="book-now"
+                className={styles.add}
+                onClick={() => setShowModal(true)}
+                round
+              >
+                Book now
+              </Button>
+
+              {showModal && (
+                <Modal
+                  title={
+                    <>
+                      Book now the room:{' '}
+                      <span className={styles.name}>{room.name}</span>
+                    </>
+                  }
+                  onClose={() => setShowModal(false)}
+                >
+                  <>Formulaire a venir</>
+                </Modal>
+              )}
+            </>
+          )}
+        </>
       ) : (
         <Spinner className={styles.spinner} />
       )}

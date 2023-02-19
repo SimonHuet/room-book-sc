@@ -1,6 +1,9 @@
 @import 'Styles/colors.scss';
 
 .container {
+  display: flex;
+  flex-direction: column;
+
   background: linear-gradient(135deg, #f5f7fa 100%, #c3cfe1 0%);
   padding: 20px;
 
@@ -15,7 +18,14 @@
     column-gap: 5px;
   }
 
-  & .spinner {
+  & .spinner,
+  .name {
     color: $primary;
+  }
+
+  & .add {
+    position: fixed;
+    align-self: flex-end;
+    bottom: 26px;
   }
 }
