@@ -7,6 +7,7 @@ type SortDirection = 'asc' | 'desc'
 export const dateSorter: (
   key: string,
   direction?: SortDirection
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ) => Comparer<any> =
   (key, direction = 'asc') =>
   (a, b) =>

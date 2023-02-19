@@ -1,4 +1,4 @@
-import { Booking, BookingBody, UserId } from 'Utils/Types'
+import { BookingBody, UserId } from 'Utils/Types'
 
 type Method = 'GET' | 'POST' | 'DELETE'
 
