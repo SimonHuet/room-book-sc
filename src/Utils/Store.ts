@@ -23,3 +23,10 @@ export const createStore = () => {
 
   return store
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const createTestStore = (preloadedState?: any) =>
+  configureStore({
+    reducer: rootReducer,
+    preloadedState,
+  })
