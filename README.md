@@ -2,6 +2,8 @@
 
 > Technical test from Sharing cloud to handle room booking
 
+
+![Continuous Integration](https://github.com/SimonHuet/room-book-sc/actions/workflows/ci.yml/badge.svg)
 ## Getting started
 
 ### Prerequisites
