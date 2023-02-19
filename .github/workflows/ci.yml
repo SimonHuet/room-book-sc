@@ -1,0 +1,32 @@
+name: Room book SC - CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request: ~
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to the repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Check linting
+        run: npm run lint
+
+      - name: Execute tests
+        run: npm run test
+
+      - name: Building the app
+        run: npm run build
