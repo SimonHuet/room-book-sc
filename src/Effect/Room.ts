@@ -1,8 +1,9 @@
 import { put, takeEvery } from 'redux-saga/effects'
-import { fetchApi } from 'Utils/Effect'
+import { toast } from 'react-toastify'
 
 import * as Api from './Api'
 import * as RoomState from 'State/Room'
+import { fetchApi } from 'Utils/Effect'
 import { Room } from 'Utils/Types'
 
 function* fetchRoom() {
@@ -12,6 +13,7 @@ function* fetchRoom() {
     yield put(RoomState.receivedRoom({ room }))
   } catch (error) {
     console.error(error)
+    yield toast.error("The room couldn't be received")
   }
 }
 

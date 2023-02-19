@@ -1,9 +1,10 @@
 import { put, takeEvery } from 'redux-saga/effects'
-import { fetchApi } from 'Utils/Effect'
+import { toast } from 'react-toastify'
 
 import * as Api from './Api'
 import * as AuthState from 'State/Auth'
 import * as UserState from 'State/User'
+import { fetchApi } from 'Utils/Effect'
 import { User, UserId } from 'Utils/Types'
 
 function* fetchConnectedUser() {
@@ -15,6 +16,7 @@ function* fetchConnectedUser() {
     yield put(AuthState.receivedConnectedUserId({ id: user.id }))
   } catch (error) {
     console.error(error)
+    yield toast.error("Couldn't get the connected user")
   }
 }
 
@@ -25,6 +27,7 @@ function* fetchUser({ payload: { id } }: { payload: { id: UserId } }) {
     yield put(UserState.receivedUser({ user }))
   } catch (error) {
     console.error(error)
+    yield toast.error("Couldn't get the user")
   }
 }
 

@@ -1,8 +1,9 @@
 import { put, takeEvery } from 'redux-saga/effects'
-import { fetchApi } from 'Utils/Effect'
+import { toast } from 'react-toastify'
 
 import * as Api from './Api'
 import * as BookingState from 'State/Booking'
+import { fetchApi } from 'Utils/Effect'
 import { BookingBody, BookingResponseData } from 'Utils/Types'
 
 function* fetchBookings() {
@@ -14,6 +15,7 @@ function* fetchBookings() {
     yield put(BookingState.receivedBookings({ bookings }))
   } catch (error) {
     console.error(error)
+    yield toast.error("Bookings couldn't be received ")
   }
 }
 
@@ -31,8 +33,10 @@ function* addBooking({
     yield put(BookingState.receivedBooking())
 
     yield onSuccess()
+    yield toast.success('Booking successfully created')
   } catch (error) {
     console.error(error)
+    yield toast.error("Booking couldn't be saved ")
   }
 }
 
@@ -49,6 +53,7 @@ function* removeBooking({
     yield put(BookingState.bookingRemoved({ id }))
   } catch (error) {
     console.error(error)
+    yield toast.error("Booking couldn't be cancelled ")
   }
 }
 
