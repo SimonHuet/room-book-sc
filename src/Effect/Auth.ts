@@ -1,8 +1,9 @@
 import { put, takeEvery } from 'redux-saga/effects'
-import { fetchApi } from 'Utils/Effect'
+import { toast } from 'react-toastify'
 
 import * as Api from './Api'
 import * as AuthState from '../State/Auth'
+import { fetchApi } from 'Utils/Effect'
 import { Auth } from 'Utils/Types'
 
 function* login() {
@@ -10,8 +11,10 @@ function* login() {
     const { data: auth }: { data: Auth } = yield fetchApi(Api.login())
 
     yield put(AuthState.success({ auth }))
-  } catch (error) {
-    console.error(error)
+
+    yield toast.success('Welcome Back')
+  } catch (_) {
+    yield toast.error('Login failed ')
   }
 }
 
@@ -21,7 +24,7 @@ function* logout() {
 
     yield put(AuthState.logoutSuccess())
   } catch (error) {
-    console.error(error)
+    yield toast.error('Login failed ')
   }
 }
 
