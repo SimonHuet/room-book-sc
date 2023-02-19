@@ -33,3 +33,8 @@ export type Booking = {
   name: string
   userId: UserId
 }
+
+export type BookingBody = {
+  name: string
+  duration: number
+}

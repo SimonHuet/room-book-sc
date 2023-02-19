@@ -48,4 +48,11 @@
     position: absolute;
     left: calc(50% - 10px);
   }
+
+  &:disabled {
+    background-color: $disabled;
+    cursor: not-allowed;
+    color: $grey;
+    border-color: $grey;
+  }
 }

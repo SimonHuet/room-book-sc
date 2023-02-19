@@ -23,6 +23,12 @@
     color: $primary;
   }
 
+  & .modal-title {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 5px;
+  }
+
   & .add {
     position: fixed;
     align-self: flex-end;

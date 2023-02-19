@@ -1,0 +1,79 @@
+@import 'Styles/colors.scss';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+
+  & .name {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    & > label {
+      margin-bottom: 10px;
+    }
+
+    & input[type='text'] {
+      -webkit-appearance: none !important;
+
+      border: 1px solid $grey;
+      border-radius: 4px;
+
+      &:focus {
+        -webkit-appearance: none !important;
+        border-color: $primary;
+      }
+    }
+  }
+
+  & .duration {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    & p {
+      font-weight: 600;
+      font-family: Open Sans;
+      padding-left: 30px;
+      color: $black;
+      margin: 0;
+    }
+
+    & input[type='range'] {
+      -webkit-appearance: none !important;
+
+      height: 2px;
+      background: $black;
+      border: none;
+      outline: none;
+
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none !important;
+
+        width: 16px;
+        height: 16px;
+        background: $primary;
+        border: 2px solid $primary;
+        border-radius: 50%;
+        cursor: pointer;
+
+        &:hover {
+          background: $white;
+        }
+      }
+    }
+  }
+
+  & .errors {
+    padding: 5px;
+    border: 1px solid $error;
+    border-radius: 4px;
+    color: $error-darker;
+  }
+
+  & .buttons {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

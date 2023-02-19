@@ -7,6 +7,7 @@ import { Button } from 'Components/UI/Button'
 import { Modal } from 'Components/UI/Modal'
 import { RoomStatus } from 'Components/UI/RoomStatus'
 import { Spinner } from 'Components/UI/Spinner'
+import { RoomBookingForm } from './RoomBookingFrom'
 
 import * as RoomState from 'State/Room'
 import * as BookingState from 'State/Booking'
@@ -86,14 +87,14 @@ export const RoomBooking: React.FC = () => {
               {showModal && (
                 <Modal
                   title={
-                    <>
-                      Book now the room:{' '}
+                    <span className={styles['modal-title']}>
+                      Book now the room:
                       <span className={styles.name}>{room.name}</span>
-                    </>
+                    </span>
                   }
                   onClose={() => setShowModal(false)}
                 >
-                  <>Formulaire a venir</>
+                  <RoomBookingForm onSuccess={() => setShowModal(false)} />
                 </Modal>
               )}
             </>

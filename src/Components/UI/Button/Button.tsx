@@ -5,6 +5,8 @@ import { Spinner } from '../Spinner'
 
 import styles from './Button.module.scss'
 
+type ButtonType = 'button' | 'submit' | 'reset' | undefined
+
 type ButtonProps = {
   id: string
   onClick: () => void
@@ -14,6 +16,8 @@ type ButtonProps = {
   round?: boolean
   className?: string
   ariaLabel?: string
+  type?: ButtonType
+  disabled?: boolean
 }
 
 export const Button = ({
@@ -25,6 +29,8 @@ export const Button = ({
   round,
   className,
   ariaLabel,
+  type,
+  disabled = undefined,
 }: ButtonProps): JSX.Element => (
   <button
     className={classNames(
@@ -37,6 +43,8 @@ export const Button = ({
     )}
     onClick={onClick}
     aria-labelledby={id}
+    {...(disabled && { disabled })}
+    {...(type && { type })}
     {...(ariaLabel && { 'aria-label': ariaLabel })}
   >
     {isLoading && <Spinner className={styles.spinner} />}
